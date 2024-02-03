@@ -11,12 +11,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tbl_endereco")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Endereco {
 	
 	@Id
@@ -26,7 +31,7 @@ public class Endereco {
 	@Column(name="logradouro", length = 100, nullable = false)
 	private String logradouro;
 	
-	@Column(name="complemento", length = 200, nullable = false)
+	@Column(name="complemento", length = 200, nullable = true)
 	private String complemento;
 	
 	@Column(name="numero", length = 100, nullable = false)
@@ -40,9 +45,8 @@ public class Endereco {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="uf", length = 2, nullable = false)
-	private EstadoEnum uf;
-	
-	@Pattern(regexp = "\\d{11}", message = "O CEP deve conter apenas números e ter 8 dígitos")
+	private EstadoEnum uf;	
+
 	@Column(name="cep", length = 8, nullable = false)
 	private String cep;
 	

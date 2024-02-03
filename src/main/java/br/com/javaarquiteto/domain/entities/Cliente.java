@@ -12,9 +12,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -24,26 +21,23 @@ public class Cliente {
 	
 	@Id
 	@Column(name="id")
-	private UUID id;
-	
-	@Size(min = 8, max = 100, message = "O nome deve ter entre 8 e 100 caracteres.")
+	private UUID id;	
+
 	@Column(name="nome", length = 100, nullable = false)
-	private String nome;
+	private String nome;	
+
+	@Column(name="email", length = 50, nullable = false)
+	private String email;	
 	
-	@Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", message = "O email deve conter um formato valido.")
-	@Column(name="email", length = 50, nullable = false, unique = true)
-	private String email;
-	
-	@Pattern(regexp = "\\d{11}", message = "O CPF deve conter apenas números e ter 11 dígitos")
-	@Column(name="cpf", length = 11, nullable = false)
+	@Column(name="cpf", length = 11, nullable = false, unique = true)
 	private String cpf;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="data-nascimento" ,nullable = false)	
-	private LocalDate date;
+	private LocalDate dataNascimento;
 	
 	@Lob
-	@Column(name="foto" , columnDefinition="BLOB")	
+	@Column
 	private byte[] foto;
 	
 	@OneToMany(mappedBy = "cliente")

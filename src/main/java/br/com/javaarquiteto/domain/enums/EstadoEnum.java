@@ -49,5 +49,14 @@ public enum EstadoEnum {
         }
         return null; 
     }
+    
+    public static EstadoEnum getEstadoEnum(String sigla) {
+        for (EstadoEnum estado : EstadoEnum.values()) {
+            if (estado.name().equalsIgnoreCase(sigla)) {
+                return estado;
+            }
+        }
+        return null; 
+    }
 
 }
