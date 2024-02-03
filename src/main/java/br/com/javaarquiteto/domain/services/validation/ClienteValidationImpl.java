@@ -3,6 +3,7 @@ package br.com.javaarquiteto.domain.services.validation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import br.com.javaarquiteto.domain.commands.ClienteCreateCommand;
@@ -18,21 +19,27 @@ public class ClienteValidationImpl implements IClienteValidation{
 	
 	@Autowired
 	private IClienteRepository clienteRepository;
+	
+	 @Value("${cpf.existe}")
+	 private String cpfExiste;
+	 
+	 @Value("${foto.size}")
+	 private String fotoSize;
 
 	@Override
 	public void validar(ClienteCreateCommand command) throws ClienteException {
 		Cliente cliente = clienteRepository.find(command.getCpf());
 		
 		if(cliente != null) {
-			LOGGER.error("Já existe um cliente com este CPF.");
-			throw new ClienteException("Já existe um cliente com este CPF.");
+			LOGGER.error(cpfExiste);
+			throw new ClienteException(cpfExiste);
 		}
 			
 		
 		if(command.getFoto() != null) {
 			 if (command.getFoto().length > 2 * 1024 * 1024) { // 2 MB em bytes
-				 LOGGER.error("Tamanho da imagem da foto excede 2 MB.");
-				 throw new ClienteException("Tamanho da imagem da foto excede 2 MB.");
+				 LOGGER.error(fotoSize);
+				 throw new ClienteException(fotoSize);
 		        }
 		}
 		

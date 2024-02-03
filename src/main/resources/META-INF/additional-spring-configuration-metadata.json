@@ -1,5 +1,27 @@
-{"properties": [{
-  "name": "queue.name",
-  "type": "java.lang.String",
-  "description": "A description for 'queue.name'"
-}]}
+{"properties": [
+  {
+    "name": "queue.name",
+    "type": "java.lang.String",
+    "description": "A description for 'queue.name'"
+  },
+  {
+    "name": "cpf.existe",
+    "type": "java.lang.String",
+    "description": "A description for 'cpf.existe'"
+  },
+  {
+    "name": "foto.size",
+    "type": "java.lang.String",
+    "description": "A description for 'foto.size'"
+  },
+  {
+    "name": "queue.name",
+    "type": "java.lang.String",
+    "description": "A description for 'queue.name'"
+  },
+  {
+    "name": "foto.size",
+    "type": "java.lang.String",
+    "description": "A description for 'foto.size'"
+  }
+]}
