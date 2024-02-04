@@ -4,18 +4,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-@Document(collection = "clientes")
-public class ClienteDto {
-	
-	@Id
+public class ClienteDto {	
+
 	private UUID id;	
 
 	private String nome;
@@ -24,6 +21,7 @@ public class ClienteDto {
 	
 	private String cpf;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataNascimento;
 	
 	private List<EnderecoDto> enderecos;	

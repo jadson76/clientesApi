@@ -15,6 +15,7 @@ public class ClienteLogEvent extends ApplicationEvent{
 		this.operacaoEnum = operacaoEnum;
 	}
 
+
 	public OperacaoEnum getOperacaoEnum() {
 		return operacaoEnum;
 	}	

@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import br.com.javaarquiteto.domain.dtos.ClienteLogDto;
 import br.com.javaarquiteto.domain.dtos.ClienteMessageDto;
-import br.com.javaarquiteto.domain.entities.Cliente;
+import br.com.javaarquiteto.domain.entities.mongodb.ClienteLogDto;
+import br.com.javaarquiteto.domain.entities.sql.Cliente;
 import br.com.javaarquiteto.domain.enums.OperacaoEnum;
 import br.com.javaarquiteto.infrastructure.event.EmailSenderLogEvent;
 import br.com.javaarquiteto.infrastructure.repository.mongodb.IClienteLogDtoRepository;

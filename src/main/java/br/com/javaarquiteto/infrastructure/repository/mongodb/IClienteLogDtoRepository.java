@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.com.javaarquiteto.domain.dtos.ClienteLogDto;
+import br.com.javaarquiteto.domain.entities.mongodb.ClienteLogDto;
 
 @Repository
 public interface IClienteLogDtoRepository extends MongoRepository<ClienteLogDto, UUID>{

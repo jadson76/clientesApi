@@ -1,12 +1,16 @@
-package br.com.javaarquiteto.domain.entities;
+package br.com.javaarquiteto.domain.entities.sql;
 
 import java.util.UUID;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.domain.Persistable;
 
 import br.com.javaarquiteto.domain.enums.EstadoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -22,9 +26,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Endereco {
+public class Endereco implements Persistable<UUID> {
 	
 	@Id
+	@GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
+    @GeneratedValue(generator = "UUIDGenerator")
 	@Column(name="id")
 	private UUID id;
 	
@@ -53,6 +59,11 @@ public class Endereco {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
+
+	@Override
+	public boolean isNew() {		
+		return id == null;
+	}
 
 
 }

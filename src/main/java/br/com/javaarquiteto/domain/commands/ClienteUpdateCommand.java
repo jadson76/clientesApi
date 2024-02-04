@@ -2,19 +2,22 @@ package br.com.javaarquiteto.domain.commands;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ClienteCreateCommand {
-
+public class ClienteUpdateCommand {
+	
+	@NotNull(message = "{id.notnull}")
+	private UUID id;	
 
 	@Size(min = 8, max = 100, message = "{nome.notblank}")
 	@NotBlank(message = "{nome.size}")
@@ -24,18 +27,11 @@ public class ClienteCreateCommand {
 	@NotBlank(message = "{email.notblank}")
 	private String email;	
 
-	@Pattern(regexp = "\\d{11}", message = "{cpf.format}")
-	@NotBlank(message = "{cpf.blank}")
-	private String cpf;	
-
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@NotNull(message = "{data.nasc.notnull}")
-	private LocalDate dataNascimento;	
-
-	private byte[] foto;	
+	@NotNull(message = "{data.nasc.notnull}")	
+	private LocalDate dataNascimento;		
 
 	@NotEmpty(message = "{email.notempty}")
-	private List<EnderecoCreateCommand> enderecos;  
-	
+	private List<EnderecoUpdateCommand> enderecos;
 
 }

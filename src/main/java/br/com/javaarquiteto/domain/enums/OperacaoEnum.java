@@ -5,6 +5,8 @@ public enum OperacaoEnum {
 	INCLUSAO_COM_FOTO("Registro do cliente %s , cpf %s com foto incluido com sucesso."),
 	INCLUSAO_SEM_FOTO("Registro do cliente %s , cpf %s sem foto incluido com sucesso."),
 	EXCLUSAO("Registro do cliente %s , cpf %s excluido com sucesso."),
+	CONSULTA_CLIENTE("Consultado Registro do cliente %s , cpf %s com sucesso."),
+	CONSULTA_TODOS_CLIENTES("Consultados Todos os Registros de clientes com sucesso."),
 	ATUALIZACAO_INFORMACOES("Registro do cliente %s , cpf %s atualizado com sucesso"),
 	ENVIO_EMAIL("Email de boas vindas enviado para o cliente %s , email %s com sucesso"),
 	ATUALIZACAO_FOTO("Registro da foto do cliente %s , cpf %s atualizado com sucesso."),
@@ -19,7 +21,6 @@ public enum OperacaoEnum {
 	    public String getDescricao() {
 	        return descricao;
 	    }
-
 	   
 	    public static String getDescricaoBySigla(String sigla) {
 	        for (OperacaoEnum operacao : OperacaoEnum.values()) {

@@ -2,7 +2,7 @@ package br.com.javaarquiteto.domain.services.util;
 
 
 import br.com.javaarquiteto.domain.dtos.ClienteMessageDto;
-import br.com.javaarquiteto.domain.entities.Cliente;
+import br.com.javaarquiteto.domain.entities.sql.Cliente;
 
 public class ClienteUtil {
 

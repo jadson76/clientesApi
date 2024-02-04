@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import br.com.javaarquiteto.domain.dtos.ClienteLogDto;
-import br.com.javaarquiteto.domain.entities.Cliente;
+import br.com.javaarquiteto.domain.entities.mongodb.ClienteLogDto;
+import br.com.javaarquiteto.domain.entities.sql.Cliente;
 import br.com.javaarquiteto.domain.enums.OperacaoEnum;
 import br.com.javaarquiteto.infrastructure.event.ClienteLogEvent;
 import br.com.javaarquiteto.infrastructure.repository.mongodb.IClienteLogDtoRepository;
@@ -26,15 +26,16 @@ public class ClienteLogListener implements ApplicationListener<ClienteLogEvent> 
 	@Override
 	public void onApplicationEvent(ClienteLogEvent event) {
 		
-		LOGGER.info("Inicio criar evento cadastro de cliente.");
+		LOGGER.info("Inicio listener evento cadastro de cliente.");
 		
-		Cliente cliente = (Cliente) event.getSource();
+		
+		Cliente cliente = (Cliente) event.getSource();			
 		
 		gravarLogCliente(cliente , event.getOperacaoEnum());
+				
+		LOGGER.info("Fim listener evento cadastro de cliente.");
 		
-		LOGGER.info("Fim criar evento cadastro de cliente.");
-		
-	}
+	}	
 
 	private void gravarLogCliente(Cliente cliente, OperacaoEnum operacaoEnum) {
 		

@@ -1,9 +1,13 @@
 package br.com.javaarquiteto.domain.dtos;
 
+import java.util.UUID;
+
 import lombok.Data;
 
 @Data
 public class EnderecoDto {
+	
+	private UUID id;
 	
 	private String logradouro;	
 	

@@ -1,4 +1,4 @@
-package br.com.javaarquiteto.domain.dtos;
+package br.com.javaarquiteto.domain.entities.mongodb;
 
 import java.time.Instant;
 import java.util.UUID;
