@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.javaarquiteto.domain.commands.ClienteCreateCommand;
 import br.com.javaarquiteto.domain.commands.ClienteUpdateCommand;
 import br.com.javaarquiteto.domain.dtos.ClienteDto;
+import br.com.javaarquiteto.domain.dtos.ClienteLogResponseDto;
 import br.com.javaarquiteto.domain.dtos.ConsultaFotoDto;
 import br.com.javaarquiteto.domain.dtos.UploadResponseDto;
 import br.com.javaarquiteto.domain.exceptions.ClienteException;
 import br.com.javaarquiteto.domain.interfaces.IClienteDomainService;
+import br.com.javaarquiteto.domain.interfaces.IClienteLogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -35,6 +37,8 @@ public class ClientesResource {
 	
 	@Autowired
 	private IClienteDomainService service;
+	@Autowired
+	private IClienteLogService logService;
 	
 	@Operation(summary = "Inclui registro de cliente")
 	@PostMapping
@@ -82,6 +86,13 @@ public class ClientesResource {
 	@GetMapping("/foto/{id}")
 	public ConsultaFotoDto getFoto(@PathVariable("id") @NotNull(message = "{id.notnull}") UUID idCliente ) throws ClienteException {
 		return service.obterFoto(idCliente);
+
+	}
+	
+	@Operation(summary = "Consulta Log de cliente")
+	@GetMapping("/log/{id}")
+	public ClienteLogResponseDto getLog(@PathVariable("id") @NotNull(message = "{id.notnull}") UUID idCliente ) throws ClienteException {
+		return logService.obterLog(idCliente);
 
 	}
 

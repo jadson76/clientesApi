@@ -13,6 +13,9 @@ import br.com.javaarquiteto.domain.entities.mongodb.ClienteLogDto;
 public interface IClienteLogDtoRepository extends MongoRepository<ClienteLogDto, UUID>{
 	
 	@Query(value = "{cpf:?0}", sort="{dataHora:1}")  
-	List<ClienteLogDto> getClienteLogsCpfOrderByDataHoraAsc(String cpf);	
+	List<ClienteLogDto> getClienteLogsCpfOrderByDataHoraAsc(String cpf);
+	
+	@Query(value = "{idCliente:?0}", sort="{dataHora:1}")  
+	List<ClienteLogDto> getClienteLogsIdClienteOrderByDataHoraAsc(UUID idCliente);	
 
 }

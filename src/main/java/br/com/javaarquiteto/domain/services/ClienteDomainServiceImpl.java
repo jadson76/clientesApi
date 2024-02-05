@@ -21,6 +21,7 @@ import br.com.javaarquiteto.domain.dtos.ClienteMessageDto;
 import br.com.javaarquiteto.domain.dtos.ConsultaFotoDto;
 import br.com.javaarquiteto.domain.dtos.EnderecoDto;
 import br.com.javaarquiteto.domain.dtos.UploadResponseDto;
+import br.com.javaarquiteto.domain.entities.mongodb.ClienteLogDto;
 import br.com.javaarquiteto.domain.entities.mongodb.FotoClienteDto;
 import br.com.javaarquiteto.domain.entities.sql.Cliente;
 import br.com.javaarquiteto.domain.entities.sql.Endereco;
@@ -42,7 +43,7 @@ public class ClienteDomainServiceImpl implements IClienteDomainService{
 	private static final Logger LOGGER = LogManager.getLogger(ClienteDomainServiceImpl.class);
 	
 	@Autowired
-	private IClienteRepository clienteRepository;
+	private IClienteRepository clienteRepository;	
 	
 	@Autowired
 	private IFotoClienteDtoRepository fotoClienteRepository;
@@ -455,6 +456,9 @@ public class ClienteDomainServiceImpl implements IClienteDomainService{
 		}
 	
 	}
+
+
+
 	
 
 }
