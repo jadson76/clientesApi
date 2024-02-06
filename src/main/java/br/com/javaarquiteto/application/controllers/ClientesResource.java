@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,15 +44,15 @@ public class ClientesResource {
 	
 	@Operation(summary = "Inclui registro de cliente")
 	@PostMapping
-	public ClienteDto post(@RequestBody @Valid ClienteCreateCommand command) throws ClienteException {
-		return service.create(command);
+	public ResponseEntity<ClienteDto> post(@RequestBody @Valid ClienteCreateCommand command) throws ClienteException {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(command)); 
 
 	}
 	
 	@Operation(summary = "Altera registro de cliente")
 	@PutMapping
-	public ClienteDto put(@RequestBody @Valid ClienteUpdateCommand command) throws ClienteException {
-		return service.update(command);
+	public ResponseEntity<ClienteDto> put(@RequestBody @Valid ClienteUpdateCommand command) throws ClienteException {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.update(command)); 		
 
 	}
 	
@@ -63,8 +65,8 @@ public class ClientesResource {
 	
 	@Operation(summary = "Consulta todos os registros de clientes")
 	@GetMapping
-	public List<ClienteDto> getAll() throws ClienteException {
-		return service.getAll();
+	public ResponseEntity<List<ClienteDto>> getAll() throws ClienteException {
+		return ResponseEntity.status(HttpStatus.OK).body(service.getAll()); 	
 
 	}
 	

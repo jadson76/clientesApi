@@ -3,6 +3,10 @@ package br.com.javaarquiteto.domain.commands;
 import java.time.LocalDate;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -28,9 +32,11 @@ public class ClienteCreateCommand {
 	@NotBlank(message = "{cpf.blank}")
 	private String cpf;	
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	@NotNull(message = "{data.nasc.notnull}")
-	private LocalDate dataNascimento;	
+	private LocalDate dataNascimento;
 
 	private byte[] foto;	
 

@@ -2,9 +2,11 @@ package br.com.javaarquiteto.domain.commands;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class EnderecoCreateCommand {
 	
 	@NotBlank(message = "{logradouro.notblank}")
