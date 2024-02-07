@@ -72,29 +72,31 @@ public class ClientesResource {
 	
 	@Operation(summary = "Consulta registro de cliente pelo id")
 	@GetMapping("/{id}")
-	public ClienteDto getCliente( @PathVariable(name="id") @NotNull(message = "{id.notnull}") UUID id) throws ClienteException {
-		return service.getById(id);
+	public ResponseEntity<ClienteDto> getCliente( @PathVariable(name="id") @NotNull(message = "{id.notnull}") UUID id) throws ClienteException {
+		return ResponseEntity.status(HttpStatus.OK).body(service.getById(id));	
 
 	}
 	
 	@Operation(summary = "Altera imagem foto do cliente")
 	@PutMapping("/foto/{id}")
-	public UploadResponseDto updateFoto(@PathVariable("id") @NotNull(message = "{id.notnull}") UUID idCliente , @RequestBody byte[] conteudoFoto) throws ClienteException {
-		return service.updateFoto(idCliente,conteudoFoto);
+	public ResponseEntity<UploadResponseDto> updateFoto(@PathVariable("id") @NotNull(message = "{id.notnull}") UUID idCliente , @RequestBody byte[] conteudoFoto) throws ClienteException {
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.updateFoto(idCliente,conteudoFoto));
 
 	}
 	
 	@Operation(summary = "Consulta imagem foto do cliente")
 	@GetMapping("/foto/{id}")
-	public ConsultaFotoDto getFoto(@PathVariable("id") @NotNull(message = "{id.notnull}") UUID idCliente ) throws ClienteException {
-		return service.obterFoto(idCliente);
-
+	public ResponseEntity<ConsultaFotoDto> getFoto(@PathVariable("id") @NotNull(message = "{id.notnull}") UUID idCliente ) throws ClienteException {
+		
+		return ResponseEntity.status(HttpStatus.OK).body(service.obterFoto(idCliente));
 	}
 	
 	@Operation(summary = "Consulta Log de cliente")
 	@GetMapping("/log/{id}")
-	public ClienteLogResponseDto getLog(@PathVariable("id") @NotNull(message = "{id.notnull}") UUID idCliente ) throws ClienteException {
-		return logService.obterLog(idCliente);
+	public ResponseEntity<ClienteLogResponseDto> getLog(@PathVariable("id") @NotNull(message = "{id.notnull}") UUID idCliente ) throws ClienteException {
+	
+		return ResponseEntity.status(HttpStatus.OK).body(logService.obterLog(idCliente));
 
 	}
 

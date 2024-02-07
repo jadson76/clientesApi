@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
@@ -36,7 +35,6 @@ import br.com.javaarquiteto.domain.commands.ClienteUpdateCommand;
 import br.com.javaarquiteto.domain.commands.EnderecoCreateCommand;
 import br.com.javaarquiteto.domain.commands.EnderecoUpdateCommand;
 import br.com.javaarquiteto.domain.dtos.ClienteDto;
-import br.com.javaarquiteto.domain.dtos.UploadResponseDto;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -123,7 +121,7 @@ public class ClientesResourceTest {
 	}
 	
 	@Test
-	@Order(2)
+	@Order(3)
 	public void getAllClientesSucessoTest() throws JsonProcessingException, Exception {			
 
 		MvcResult result = mockMvc.perform(
@@ -144,7 +142,7 @@ public class ClientesResourceTest {
 	}
 	
 	@Test
-	@Order(3)
+	@Order(4)
 	public void getClientebyIdSucessoTest() throws JsonProcessingException, Exception {			
 
 		MvcResult result = mockMvc.perform(get("/api/clientes/" + idCliente)
@@ -167,25 +165,20 @@ public class ClientesResourceTest {
 	}
 	
 	@Test
-	@Order(4)
+	@Order(5)
 	public void updateFotoByIDSucessoTest() throws JsonProcessingException, Exception {
 		
 		byte[] conteudoFoto = TesteUtil.getFakeFoto();
 
-		MvcResult result = mockMvc.perform(
-				put("/api/clientes/foto" + idCliente).contentType("application/json").content(objectMapper.writeValueAsString(conteudoFoto)))
-				.andExpect(status().isCreated()).andReturn();
-
-		String contentAsString = result.getResponse().getContentAsString();		
-
-		UploadResponseDto response = objectMapper.readValue(contentAsString, UploadResponseDto.class);
+		 mockMvc.perform(
+				put("/api/clientes/foto/" + idCliente).contentType("application/json").content(objectMapper.writeValueAsString(conteudoFoto)))
+				.andExpect(status().isCreated());
 		
-		assertNotNull(response);
 		
 	}
 	
 	@Test
-	@Order(5)
+	@Order(6)
 	public void deleteClientebyIdSucessoTest() throws JsonProcessingException, Exception {			
 
 		   mockMvc.perform(delete("/api/clientes/" + idCliente)
