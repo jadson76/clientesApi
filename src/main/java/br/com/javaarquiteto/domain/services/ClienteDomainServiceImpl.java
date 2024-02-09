@@ -1,5 +1,7 @@
 package br.com.javaarquiteto.domain.services;
 
+import java.io.ByteArrayInputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +24,6 @@ import br.com.javaarquiteto.domain.dtos.ClienteMessageDto;
 import br.com.javaarquiteto.domain.dtos.ConsultaFotoDto;
 import br.com.javaarquiteto.domain.dtos.EnderecoDto;
 import br.com.javaarquiteto.domain.dtos.UploadResponseDto;
-import br.com.javaarquiteto.domain.entities.mongodb.ClienteLogDto;
 import br.com.javaarquiteto.domain.entities.mongodb.FotoClienteDto;
 import br.com.javaarquiteto.domain.entities.sql.Cliente;
 import br.com.javaarquiteto.domain.entities.sql.Endereco;
@@ -31,6 +33,7 @@ import br.com.javaarquiteto.domain.interfaces.IClienteDomainService;
 import br.com.javaarquiteto.domain.interfaces.IClienteValidation;
 import br.com.javaarquiteto.domain.interfaces.IEnderecoDomainService;
 import br.com.javaarquiteto.domain.services.util.ClienteUtil;
+import br.com.javaarquiteto.domain.services.util.PdfUtil;
 import br.com.javaarquiteto.infrastructure.event.ClienteLogEvent;
 import br.com.javaarquiteto.infrastructure.event.ConsultaClientesEvent;
 import br.com.javaarquiteto.infrastructure.producers.ClienteMessageProducer;
@@ -455,6 +458,25 @@ public class ClienteDomainServiceImpl implements IClienteDomainService{
 			LOGGER.info("Fim consultar registro foto de cliente.");
 		}
 	
+	}
+
+
+
+	@Override
+	public ByteArrayInputStream getPDFById(UUID id) throws ClienteException {
+	   
+		LOGGER.info("Inicio obter PDF do cliente.");
+
+		ClienteDto cliente = getById(id);
+		
+		 ByteArrayInputStream bis;
+		try {
+			bis = PdfUtil.clientePDFRelatorio(cliente);
+		}catch (ParseException e) {
+			 throw new ClienteException(e.getMessage());
+		}    
+
+		return bis;
 	}
 
 

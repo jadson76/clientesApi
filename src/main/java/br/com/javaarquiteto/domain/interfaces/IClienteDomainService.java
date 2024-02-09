@@ -1,5 +1,6 @@
 package br.com.javaarquiteto.domain.interfaces;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,5 +26,9 @@ public interface IClienteDomainService {
 	UploadResponseDto updateFoto(UUID idCliente, byte[] conteudoFoto) throws ClienteException;
 
 	ConsultaFotoDto obterFoto(UUID idCliente) throws ClienteException;
+
+	ByteArrayInputStream getPDFById(UUID id) throws ClienteException;
+
+	
 
 }

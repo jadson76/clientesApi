@@ -1,10 +1,14 @@
 package br.com.javaarquiteto.application.controllers;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -97,6 +101,20 @@ public class ClientesResource {
 	public ResponseEntity<ClienteLogResponseDto> getLog(@PathVariable("id") @NotNull(message = "{id.notnull}") UUID idCliente ) throws ClienteException {
 	
 		return ResponseEntity.status(HttpStatus.OK).body(logService.obterLog(idCliente));
+
+	}
+	
+	@Operation(summary = "Emite consulta cadastro do cliente em PDF.")
+	 @GetMapping(value = "/relatorio/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> getConsultaClientePDF( @PathVariable(name="id") @NotNull(message = "{id.notnull}") UUID id) throws ClienteException {
+		ByteArrayInputStream bis = service.getPDFById(id);
+		HttpHeaders headers = new HttpHeaders();
+	        headers.add("Content-Disposition", "inline; filename=customers.pdf");
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.headers(headers)
+				.contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));	
 
 	}
 
