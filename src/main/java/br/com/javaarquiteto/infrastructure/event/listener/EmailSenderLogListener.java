@@ -43,23 +43,23 @@ public class EmailSenderLogListener implements ApplicationListener<EmailSenderLo
 
 	private void gravarLog(ClienteMessageDto clienteMessage, OperacaoEnum operacaoEnum) {
 		
-		Cliente cliente = clienteRepository.find(clienteMessage.clienteId());
-		
-		String descricaoNaoformatada = operacaoEnum.getDescricao();
-		
-		String descricaoFormatada = String.format(descricaoNaoformatada, cliente.getNome() , cliente.getEmail());
-		
-		var log = ClienteLogDto.builder()
-				.id(UUID.randomUUID())
-				.idCliente(cliente.getId())
-				.cpf(cliente.getCpf())				
-				.dataHora(Instant.now())
-				.operacao(operacaoEnum.name())
-				.descricao(descricaoFormatada)
-				.build();
-		
-		repository.save(log);	
-		
+		try {
+
+			Cliente cliente = clienteRepository.find(clienteMessage.clienteId());
+
+			String descricaoNaoformatada = operacaoEnum.getDescricao();
+
+			String descricaoFormatada = String.format(descricaoNaoformatada, cliente.getNome(), cliente.getEmail());
+
+			var log = ClienteLogDto.builder().id(UUID.randomUUID()).idCliente(cliente.getId()).cpf(cliente.getCpf())
+					.dataHora(Instant.now()).operacao(operacaoEnum.name()).descricao(descricaoFormatada).build();
+
+			repository.save(log);
+
+		} catch (Exception e) {
+			LOGGER.info("Erro - onApplicationEvent : " +e.getMessage());
+		}
+
 	}
 
 }

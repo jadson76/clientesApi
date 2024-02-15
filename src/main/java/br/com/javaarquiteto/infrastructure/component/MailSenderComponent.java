@@ -1,9 +1,12 @@
 package br.com.javaarquiteto.infrastructure.component;
 
+import static org.assertj.core.api.Assertions.catchException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -40,6 +43,9 @@ public class MailSenderComponent {
 			javaMailSender.send(mimeMessage);
 			
 		} catch (MessagingException e) {
+			LOGGER.error("Falha ao enviar e-mail.", e.getMessage());
+			
+		} catch(MailSendException e)	{
 			LOGGER.error("Falha ao enviar e-mail.", e.getMessage());
 		}finally {
 			LOGGER.info("Fim envio de e-mail");
